@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚌 Transit Talks</title>
+    <meta http-equiv="refresh" content="10">
+    <title>🚌 Transit Talks - Ahmedabad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,227 +14,392 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
             color: #333;
+            line-height: 1.6;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
             overflow: hidden;
         }
         
-        .header {
-            background: linear-gradient(135deg, #1f77b4 0%, #2ecc71 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
+        .hero::before {
+            content: '🚇';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            right: -50px;
+            top: -50px;
         }
         
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
         }
         
-        .update-time {
-            background: rgba(255,255,255,0.2);
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+        
+        .update-badge {
             display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 25px;
+            border-radius: 30px;
+            margin-top: 20px;
             font-size: 0.9rem;
-            margin-top: 10px;
+            backdrop-filter: blur(10px);
         }
         
-        .metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 30px;
+        /* Key Stats Bar */
+        .stats-bar {
             background: #f8f9fa;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 4px solid #e3e8ed;
         }
         
-        .metric-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .stat-item {
             text-align: center;
-            transition: transform 0.2s;
         }
         
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e3c72;
+            display: block;
         }
         
-        .metric-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #1f77b4;
-            margin: 10px 0;
-        }
-        
-        .metric-label {
-            color: #666;
+        .stat-label {
             font-size: 0.9rem;
+            color: #666;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 5px;
         }
         
-        .section {
-            padding: 30px;
+        /* Key Insights Section */
+        .insights-section {
+            padding: 60px 40px;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
         }
         
         .section-title {
-            font-size: 1.8rem;
-            color: #1f77b4;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #1f77b4;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 10px;
         }
         
-        .plots-grid {
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Insights Grid */
+        .insights-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
-            margin-top: 20px;
+            margin-top: 40px;
         }
         
-        .plot-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        .insight-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
             overflow: hidden;
         }
         
-        .plot-card img {
+        .insight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .insight-percentage {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .insight-question {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .insight-answer {
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.4;
+            border-top: 2px solid rgba(255,255,255,0.3);
+            padding-top: 15px;
+        }
+        
+        .insight-count {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        /* Chart Section */
+        .charts-section {
+            padding: 60px 40px;
+            background: #f8f9fa;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .chart-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .chart-card img {
             width: 100%;
             display: block;
         }
         
-        .cross-analysis {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 30px;
-            margin-top: 20px;
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
         }
         
-        .footer {
-            background: #2c3e50;
-            color: white;
-            padding: 20px;
-            text-align: center;
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
         }
         
         .download-btn {
             display: inline-block;
-            background: #2ecc71;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 25px;
+            background: white;
+            color: #f5576c;
+            padding: 15px 40px;
+            border-radius: 30px;
             text-decoration: none;
-            margin: 10px;
-            font-weight: bold;
-            transition: background 0.3s;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
         
         .download-btn:hover {
-            background: #27ae60;
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
         }
         
-        .auto-refresh-notice {
-            background: #fff3cd;
-            color: #856404;
-            padding: 15px;
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 30px 40px;
             text-align: center;
-            border-top: 3px solid #ffc107;
+        }
+        
+        .footer-note {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
             font-size: 0.9rem;
         }
         
+        #countdown {
+            font-weight: 700;
+            color: #f093fb;
+        }
+        
+        /* Color variations for cards */
+        .insight-card:nth-child(1) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .insight-card:nth-child(2) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .insight-card:nth-child(3) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .insight-card:nth-child(4) { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .insight-card:nth-child(5) { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .insight-card:nth-child(6) { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        
         @media (max-width: 768px) {
-            .plots-grid {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .insights-grid,
+            .charts-grid {
                 grid-template-columns: 1fr;
             }
             
-            .cross-analysis {
-                grid-template-columns: 1fr;
+            .insight-percentage {
+                font-size: 4rem;
             }
             
-            .header h1 {
-                font-size: 1.8rem;
+            .section-title {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
+        <!-- Hero Section -->
+        <div class="hero">
             <h1>🚌 Transit Talks</h1>
-            <div class="update-time">🔄 Last Updated: {{ current_time }}</div>
-        </div>
-        
-        <!-- Metrics -->
-        <div class="metrics">
-            <div class="metric-card">
-                <div class="metric-label">Total Responses</div>
-                <div class="metric-value">{{ total_responses }}</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-label">Latest Response</div>
-                <div class="metric-value" style="font-size: 1.3rem;">{{ latest }}</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-label">Average Rating</div>
-                <div class="metric-value">{{ avg_rating }}</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-label">Total Questions</div>
-                <div class="metric-value">{{ total_questions }}</div>
+            <p class="hero-subtitle">
+                Understanding what Ahmedabad residents really want from public transport. 
+                Here's what the data reveals about our city's transit future.
+            </p>
+            <div class="update-badge">
+                🔄 Live Data • Last Updated: {{ current_time }}
             </div>
         </div>
         
-        <!-- Survey Results -->
-        <div class="section">
-            <h2 class="section-title">📊 Survey Results Analysis</h2>
-            <div class="plots-grid">
-                {% for plot in plots %}
-                <div class="plot-card">
-                    <img src="data:image/png;base64,{{ plot.plot }}" alt="{{ plot.question }}">
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number">{{ total_responses }}</span>
+                <span class="stat-label">Survey Responses</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ total_questions }}</span>
+                <span class="stat-label">Questions Asked</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ latest }}</span>
+                <span class="stat-label">Latest Response</span>
+            </div>
+        </div>
+        
+        <!-- Key Insights -->
+        <div class="insights-section">
+            <div class="section-header">
+                <h2 class="section-title">💡 Key Insights</h2>
+                <p class="section-subtitle">
+                    What Ahmedabad residents are telling us about their public transport needs
+                </p>
+            </div>
+            
+            <div class="insights-grid">
+                {% for insight in key_insights %}
+                <div class="insight-card">
+                    <div class="insight-percentage">{{ insight.percentage }}%</div>
+                    <div class="insight-question">{{ insight.question[:60] }}...</div>
+                    <div class="insight-answer">"{{ insight.top_answer }}"</div>
+                    <div class="insight-count">{{ insight.count }} out of {{ insight.total }} respondents</div>
                 </div>
                 {% endfor %}
             </div>
         </div>
         
-        <!-- Cross Analysis -->
-        {% if cross_plots %}
-        <div class="section" style="background: #f8f9fa;">
-            <h2 class="section-title">🔍 Cross-Analysis</h2>
-            <div class="cross-analysis">
-                {% for cross_plot in cross_plots %}
-                <div class="plot-card">
-                    <img src="data:image/png;base64,{{ cross_plot }}" alt="Cross Analysis">
+        <!-- Detailed Charts -->
+        {% if plots %}
+        <div class="charts-section">
+            <div class="section-header">
+                <h2 class="section-title">📊 Detailed Breakdown</h2>
+                <p class="section-subtitle">
+                    Dive deeper into the survey responses
+                </p>
+            </div>
+            
+            <div class="charts-grid">
+                {% for plot in plots %}
+                <div class="chart-card">
+                    <img src="data:image/png;base64,{{ plot.plot }}" alt="{{ plot.question }}">
                 </div>
                 {% endfor %}
             </div>
         </div>
         {% endif %}
         
-        <!-- Auto-refresh Notice -->
-        <div class="auto-refresh-notice">
-            ⏱️ Dashboard refreshes every 10 seconds | Next refresh in: <span id="countdown">10</span>s
+        <!-- CTA -->
+        <div class="cta-section">
+            <h3 class="cta-title">Want the Full Data?</h3>
+            <p class="cta-text">Download the complete survey dataset for your own analysis</p>
+            <a href="/download" class="download-btn">📥 Download CSV</a>
         </div>
         
         <!-- Footer -->
         <div class="footer">
-            <a href="/download" class="download-btn">📥 Download Survey Data</a>
-            <p style="margin-top: 15px; font-size: 0.9rem;">
-                Powered by Flask + Seaborn | Live data from Google Sheets
+            <div class="footer-note">
+                ⏱️ Live dashboard refreshes every 10 seconds • Next refresh in: <span id="countdown">10</span>s
+            </div>
+            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">
+                Powered by Flask + Google Sheets | Transit Talks Dashboard 2026
             </p>
         </div>
     </div>

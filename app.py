@@ -126,39 +126,51 @@ def dashboard():
     else:
         latest = "N/A"
     
+    # Calculate key insights with percentages
+    key_insights = []
+    
+    # Get all question columns
+    excluded_cols = ['timestamp', 'Timestamp', 'Email Address', 'email', 'Email', 'Name', 'Age', 'Age ', 'Are you a resident of Ahmedabad ?']
+    all_question_cols = [col for col in df.columns if col not in excluded_cols]
+    
+    # Calculate top responses for each question
+    for column in all_question_cols:
+        if column in df.columns and not df[column].isna().all():
+            value_counts = df[column].value_counts()
+            if len(value_counts) > 0:
+                top_value = value_counts.index[0]
+                top_count = value_counts.iloc[0]
+                percentage = (top_count / len(df)) * 100
+                
+                # Clean question text
+                clean_question = column.strip().replace('\ufffd', '-').replace('  ', ' ')
+                
+                key_insights.append({
+                    'question': clean_question,
+                    'top_answer': str(top_value),
+                    'percentage': int(percentage),
+                    'count': int(top_count),
+                    'total': len(df)
+                })
+    
     # Calculate average ratings
     numerical_cols = df.select_dtypes(include=[np.number]).columns.tolist()
-    excluded_cols = ['timestamp', 'Timestamp', 'Email Address', 'email', 'Email']
     numerical_cols = [col for col in numerical_cols if col not in excluded_cols]
     
     avg_rating = df[numerical_cols].mean().mean() if numerical_cols else 0
-    total_questions = len([col for col in df.columns if col not in excluded_cols])
+    total_questions = len(all_question_cols)
     
-    # Get all question columns
-    all_question_cols = [col for col in df.columns if col not in excluded_cols]
-    
-    # Create plots for all questions
+    # Create simplified plots for key questions (max 4 most important)
     plots = []
-    for column in all_question_cols:
-        plot_url = create_plot(df, column, questions)
-        plots.append({
-            'question': questions.get(column, column.replace('_', ' ').title()),
-            'plot': plot_url
-        })
+    priority_questions = all_question_cols[:4]  # Show only first 4 questions
     
-    # Create cross-analysis plots
-    categorical_cols = df.select_dtypes(include=['object']).columns.tolist()
-    excluded_cols = ['timestamp', 'Timestamp', 'Email Address', 'email', 'Email']
-    categorical_cols = [col for col in categorical_cols if col not in excluded_cols]
-    
-    cross_plots = []
-    if len(categorical_cols) >= 2:
-        cross_plot1 = create_cross_analysis(df, categorical_cols[0], categorical_cols[1], questions)
-        cross_plots.append(cross_plot1)
-        
-        if len(categorical_cols) >= 3:
-            cross_plot2 = create_cross_analysis(df, categorical_cols[1], categorical_cols[2], questions)
-            cross_plots.append(cross_plot2)
+    for column in priority_questions:
+        if column in df.columns:
+            plot_url = create_plot(df, column, questions)
+            plots.append({
+                'question': questions.get(column, column.strip()[:60]),
+                'plot': plot_url
+            })
     
     return render_template('dashboard.html',
                          total_responses=total_responses,
@@ -167,7 +179,7 @@ def dashboard():
                          total_questions=total_questions,
                          current_time=datetime.now().strftime('%H:%M:%S'),
                          plots=plots,
-                         cross_plots=cross_plots)
+                         key_insights=key_insights[:6])  # Top 6 insights
 
 @app.route('/download')
 def download():
